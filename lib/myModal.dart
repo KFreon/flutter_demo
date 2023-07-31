@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'appstate.dart';
+import 'data.service.dart';
 
 class MyModal extends StatefulWidget {
   final BuildContext context;
@@ -23,7 +24,7 @@ class _MyModalState extends State<MyModal> {
 
   @override
   Widget build(BuildContext context) {
-    var myState = context.watch<MyAppState>();
+    final myState = context.watch<MyAppState>();
 
     return Center(
         child: Column(children: [
@@ -56,8 +57,10 @@ class _MyModalState extends State<MyModal> {
           ),
           onPressed: newCoolDude.isNotEmpty
               ? () {
-                  myState.addACoolDude(CoolDude(
-                      name: newCoolDude, areTheyACoolDude: isCoolDude));
+                  myState.addADude(CoolDude(
+                      id: myState.getNextId(),
+                      name: newCoolDude,
+                      areTheyACoolDude: isCoolDude));
                   setState(() {
                     newCoolDude = "";
                   });
